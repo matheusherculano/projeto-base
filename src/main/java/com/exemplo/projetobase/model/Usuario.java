@@ -3,6 +3,8 @@ package com.exemplo.projetobase.model;
 import java.time.LocalDateTime;
 import java.util.Set;
 
+import com.exemplo.projetobase.dto.UsuarioDTO;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -43,18 +45,13 @@ public class Usuario {
 	private LocalDateTime dataCriacao; 
 
 	@Column(name = "dt_ultimo_login")
-	private LocalDateTime ultimoLogin; 
+	private LocalDateTime dataUltimoLogin; 
 	
 	@ManyToMany(fetch = FetchType.EAGER)
 	@JoinTable(name = "tb_usuario_role", joinColumns = { @JoinColumn(name = "usuario_id") }, inverseJoinColumns = {
 			@JoinColumn(name = "role_id") })
 	private Set<Role> roles;
-	
 
-//	@ManyToMany(fetch = FetchType.EAGER)
-//	@JoinTable(name = "tb_usuario_role", joinColumns = { @JoinColumn(name = "usuario_id") }, inverseJoinColumns = {
-//			@JoinColumn(name = "role_id") })
-//	private Set<Role> roles;
 
 	
 }

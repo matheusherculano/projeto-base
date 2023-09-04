@@ -3,6 +3,7 @@ package com.exemplo.projetobase.security;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -40,6 +41,7 @@ public class WebSecurityConfig implements CorsConfigurationSource {
 //		 http.cors().configurationSource(corsConfigurationSource);
 
 		return http.authorizeHttpRequests(requests -> {
+			requests.requestMatchers(HttpMethod.POST, "/auth/login").permitAll();
 			requests.requestMatchers("/testes/start").permitAll();
 			requests.requestMatchers("/portal-admin").permitAll();
 			requests.requestMatchers("/logout").permitAll();
