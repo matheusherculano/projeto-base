@@ -10,6 +10,7 @@ import com.exemplo.projetobase.dto.UsuarioDTO;
 import com.exemplo.projetobase.model.Usuario;
 import com.exemplo.projetobase.repository.UsuarioRepository;
 import com.exemplo.projetobase.service.UsuarioService;
+import com.gestor.app.model.Ambiente;
 
 @Service
 public class UsuarioServiceImpl implements UsuarioService{
@@ -23,6 +24,24 @@ public class UsuarioServiceImpl implements UsuarioService{
 	
 	public Usuario getUsuarioByLogin(String login) {
 		return usuarioRepository.findByLogin(login);
+	}
+	
+	public void cadastrarUsuario(UsuarioDTO dto) {
+		boolean usuarioExiste = usuarioRepository.findByLogin(dto.getLogin()) == null ? false : true;
+		boolean emailExiste = usuarioRepository.findByEmail(dto.getLogin()) == null ? false : true;
+		
+		if(usuarioExiste) {
+			throw new Exception("Usuário já cadastrado");
+		}else if(emailExiste){
+			throw new Exception("Email já cadastrado");
+		}else{
+			Usuario usuario = new Usuario(dto);
+			usuario.setSenha(passowrdEncoder().encode(usuario.getSenha()));
+			usuario.setAmbiente(ambiente);
+			usuario.setTimeStamp(LocalDateTime.now());
+			
+			usuarioRepository.save(usuario);
+		}
 	}
 	
 	public void cadastrarUsuarioMaster(UsuarioDTO dto) {

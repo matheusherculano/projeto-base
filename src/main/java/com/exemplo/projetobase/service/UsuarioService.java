@@ -9,5 +9,7 @@ public interface UsuarioService {
 	 
 	 Usuario getUsuarioByLogin(String login);
 	 
+	 void cadastrarUsuario(UsuarioDTO dto);
+	 
 	 void atualizarDataHoraUltimoAcesso(Usuario usuario);
 }
