@@ -24,6 +24,10 @@ import lombok.Setter;
 @Getter @Setter @NoArgsConstructor
 public class Usuario {
 
+	public Usuario(UsuarioDTO dto) {
+		
+	}
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id_usuario", nullable = false)
