@@ -27,6 +27,10 @@ public class UsuarioService{
 	}
 	
 	public void cadastrarUsuario(UsuarioDTO dto) throws ExceptionPersonalizada {
+		if(!UsuarioDTO.isValidDTO(dto)) {
+			throw new ExceptionPersonalizada(HttpStatus.BAD_REQUEST, "Faltam dados do usuário, preencha os campos obrigatórios", "");
+		}
+		
 		boolean usuarioExiste = usuarioRepository.findByLogin(dto.getLogin()) == null ? false : true;
 		boolean emailExiste = usuarioRepository.findByEmail(dto.getEmail()) == null ? false : true;
 		

@@ -44,6 +44,7 @@ public class WebSecurityConfig implements CorsConfigurationSource {
 			requests.requestMatchers(HttpMethod.POST, "/auth/login").permitAll();
 			requests.requestMatchers(HttpMethod.POST, "/usuario/cadastro").permitAll();
 			requests.requestMatchers("/testes/start").permitAll();
+			requests.requestMatchers("/testes/01").permitAll();
 			requests.requestMatchers("/portal-admin").permitAll();
 			requests.requestMatchers("/logout").permitAll();
 			/* TODO

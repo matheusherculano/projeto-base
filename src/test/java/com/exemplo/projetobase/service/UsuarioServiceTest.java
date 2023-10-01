@@ -1,6 +1,9 @@
 package com.exemplo.projetobase.service;
 
-import static org.mockito.Mockito.verify;
+import static org.hamcrest.CoreMatchers.notNullValue;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.CoreMatchers.is;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.verifyNoMoreInteractions;
 import static org.mockito.Mockito.when;
 
@@ -41,8 +44,20 @@ public class UsuarioServiceTest {
 		 when(usuarioRepository.findByLogin(usuarioDTO.getLogin())).thenReturn(null);
 		 when(usuarioRepository.findByEmail(usuarioDTO.getEmail())).thenReturn(null);
 		 usuarioService.cadastrarUsuario(usuarioDTO);
-		 
-//	        verify(usuarioRepository).save(usuario);
-//	        verifyNoMoreInteractions(usuarioRepository);
 	 }
+	
+	@Test
+	void ExceptionVerificarNomeVazio() {
+		final ExceptionPersonalizada e = assertThrows(ExceptionPersonalizada.class, ()->{
+			usuarioDTO.setNome("");
+			usuarioService.cadastrarUsuario(usuarioDTO);
+		});
+		
+		assertThat(e.getExceptionDTO(), notNullValue());
+        assertThat(e.getExceptionDTO().getTitle(), is("Faltam dados do usuário, preencha os campos obrigatórios"));
+        verifyNoMoreInteractions(usuarioRepository);
+	}
+	
+//	@Test
+//	void ExceptionEmailJaExistente() {}
 }
