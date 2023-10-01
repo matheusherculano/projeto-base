@@ -9,7 +9,6 @@ import util.Message;
 public class ProjetoBaseApplication {
 
 	public static void main(String[] args) {
-	    System.out.println(Message.get("hello"));
 		SpringApplication.run(ProjetoBaseApplication.class, args);
 	}
 

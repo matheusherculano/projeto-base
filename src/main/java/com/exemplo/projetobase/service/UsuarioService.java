@@ -12,6 +12,8 @@ import com.exemplo.projetobase.exceptions.ExceptionPersonalizada;
 import com.exemplo.projetobase.model.Usuario;
 import com.exemplo.projetobase.repository.UsuarioRepository;
 
+import util.Message;
+
 @Service
 public class UsuarioService{
 	
@@ -28,7 +30,7 @@ public class UsuarioService{
 	
 	public void cadastrarUsuario(UsuarioDTO dto) throws ExceptionPersonalizada {
 		if(!UsuarioDTO.isValidDTO(dto)) {
-			throw new ExceptionPersonalizada(HttpStatus.BAD_REQUEST, "Faltam dados do usuário, preencha os campos obrigatórios", "");
+			throw new ExceptionPersonalizada(HttpStatus.BAD_REQUEST, Message.get("FALTAM_DADOS_DO_USUARIO"), "");
 		}
 		
 		boolean usuarioExiste = usuarioRepository.findByLogin(dto.getLogin()) == null ? false : true;
@@ -36,10 +38,10 @@ public class UsuarioService{
 		
 		if(usuarioExiste) {
 //			throw new Exception("Usuário já cadastrado");
-			throw new ExceptionPersonalizada(HttpStatus.BAD_REQUEST, "Usuário já cadastrado", "");
+			throw new ExceptionPersonalizada(HttpStatus.BAD_REQUEST, Message.get("USUARIO_JA_CADASTRADO"), "");
 		}else if(emailExiste){
 //			throw new Exception("Email já cadastrado");
-			throw new ExceptionPersonalizada(HttpStatus.BAD_REQUEST, "Email já cadastrado", "");
+			throw new ExceptionPersonalizada(HttpStatus.BAD_REQUEST, Message.get("EMAIL_JA_CADASTRADO"), "");
 		}else{
 			Usuario usuario = new Usuario(dto);
 			usuario.setSenha(passowrdEncoder().encode(usuario.getSenha()));
